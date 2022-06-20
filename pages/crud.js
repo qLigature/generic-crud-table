@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Container, Table, Button, Form } from "react-bootstrap";
@@ -7,13 +8,13 @@ export default function Home({ something, initialFieldState }) {
   // TODO: figure out if it's possible to use SWR here somehow
   const [newName, setNewName] = useState("");
   const [updatedName, setUpdatedName] = useState(initialFieldState);
-  
+
   // Read: https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
   const router = useRouter();
   const refreshData = () => {
     // somehow refreshes server side props (but how)
     router.replace(router.asPath);
-    
+
     // resets update fields
     setUpdatedName(initialFieldState);
   };
@@ -22,7 +23,7 @@ export default function Home({ something, initialFieldState }) {
   // note: if you see parenthesis right after an arrow, instead of braces
   // it's because the arrow function is returning an object
   const handleUpdate = (value, id) => {
-    setUpdatedName(prevNames => ({...prevNames, [id]: value}));
+    setUpdatedName(prevNames => ({ ...prevNames, [id]: value }));
   }
 
   // TODO: clean up and store these functions somewhere else
@@ -45,7 +46,7 @@ export default function Home({ something, initialFieldState }) {
 
       setNewName("");
       refreshData();
-      setUpdatedName(prevName => ({...prevName, [data._id]: ''}));
+      setUpdatedName(prevName => ({ ...prevName, [data._id]: '' }));
     }
   }
 
@@ -117,39 +118,46 @@ export default function Home({ something, initialFieldState }) {
   }
 
   return (
-    <Container>
-      <div className="text-center my-3">
-        <h2 className="fw-bold">Generic CRUD Table</h2>
-      </div>
+    <>
+      <Head>
+        <title>Generic CRUD Table App</title>
+        <meta name="description" content="i suck at react KEKW" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Container>
+        <div className="text-center my-3">
+          <h2 className="fw-bold">Generic CRUD Table</h2>
+        </div>
 
-      <div className="d-flex justify-content-center align-items-center my-3">
-        <Form onSubmit={(e) => createRow(e)}>
-          <Form.Group>
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Button className="ms-5 mt-3" variant="primary" type="submit">
-            Create Item
-          </Button>
-        </Form>
-      </div>
+        <div className="d-flex justify-content-center align-items-center my-3">
+          <Form onSubmit={(e) => createRow(e)}>
+            <Form.Group>
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button className="ms-5 mt-3" variant="primary" type="submit">
+              Create Item
+            </Button>
+          </Form>
+        </div>
 
-      <Table striped bordered hover responsive>
-        <thead className="bg-dark text-white">
-          <tr>
-            <th>Name</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>{renderRows(something)}</tbody>
-      </Table>
-    </Container>
+        <Table striped bordered hover responsive>
+          <thead className="bg-dark text-white">
+            <tr>
+              <th>Name</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>{renderRows(something)}</tbody>
+        </Table>
+      </Container>
+    </>
   );
 }
 
@@ -161,10 +169,10 @@ export async function getServerSideProps() {
 
   // First turns an array of objects into an array of ids
   // then converts that array into a single object with properties
-  const idObject = data.map(s => s._id).reduce((a, v) => ({ ...a, [v]: ''}), {});
+  const idObject = data.map(s => s._id).reduce((a, v) => ({ ...a, [v]: '' }), {});
 
   return {
-    props: { 
+    props: {
       something: data,
       initialFieldState: idObject
     }
