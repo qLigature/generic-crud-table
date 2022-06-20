@@ -5,7 +5,6 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <title>Generic CRUD Table App</title>
         <meta name="description" content="i suck at react KEKW" />
         <link rel="icon" href="/favicon.ico" />
         <link
