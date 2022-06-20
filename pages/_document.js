@@ -5,6 +5,9 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        <title>Generic CRUD Table App</title>
+        <meta name="description" content="i suck at react KEKW" />
+        <link rel="icon" href="/favicon.ico" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
           rel="stylesheet"

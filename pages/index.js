@@ -118,46 +118,39 @@ export default function Page({ something, initialFieldState }) {
   }
 
   return (
-    <>
-      <Head>
-        <title>Generic CRUD Table App</title>
-        <meta name="description" content="i suck at react KEKW" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container>
-        <div className="text-center my-3">
-          <h2 className="fw-bold">Generic CRUD Table</h2>
-        </div>
+    <Container>
+      <div className="text-center my-3">
+        <h2 className="fw-bold">Generic CRUD Table</h2>
+      </div>
 
-        <div className="d-flex justify-content-center align-items-center my-3">
-          <Form onSubmit={(e) => createRow(e)}>
-            <Form.Group>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button className="ms-5 mt-3" variant="primary" type="submit">
-              Create Item
-            </Button>
-          </Form>
-        </div>
+      <div className="d-flex justify-content-center align-items-center my-3">
+        <Form onSubmit={(e) => createRow(e)}>
+          <Form.Group>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Button className="ms-5 mt-3" variant="primary" type="submit">
+            Create Item
+          </Button>
+        </Form>
+      </div>
 
-        <Table striped bordered hover responsive>
-          <thead className="bg-dark text-white">
-            <tr>
-              <th>Name</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>{renderRows(something)}</tbody>
-        </Table>
-      </Container>
-    </>
+      <Table striped bordered hover responsive>
+        <thead className="bg-dark text-white">
+          <tr>
+            <th>Name</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>{renderRows(something)}</tbody>
+      </Table>
+    </Container>
   );
 }
 
