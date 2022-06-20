@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Container, Table, Button, Form } from "react-bootstrap";
